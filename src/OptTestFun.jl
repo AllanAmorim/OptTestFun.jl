@@ -1,4 +1,4 @@
-module OptTestFuns
+module OptTestFun
 
 export quad1, quad2
 
