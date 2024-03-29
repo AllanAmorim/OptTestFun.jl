@@ -1,6 +1,6 @@
 module OptTestFun
 
-export quad1, quad2, rosen, dix
+export quad1, quad2, rosen, dix, rast
 
 
 # Write your package code here...
