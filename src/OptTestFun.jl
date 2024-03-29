@@ -11,7 +11,7 @@ struct st_funlib
 end
 
 
-############ FUNCTION LIBRARY ###############################
+############### FUNCTION LIBRARY ###############################
 
 function rf(x::Vector{T}) where T <: Real
     sum = 0 
