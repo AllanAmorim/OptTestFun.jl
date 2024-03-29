@@ -1,6 +1,6 @@
 module OptTestFun
 
-export quad1, quad2, rosen, dp, rast, sphere
+export rosen, dp, rast, sphere
 
 struct st_funlib
     obj  :: Function
