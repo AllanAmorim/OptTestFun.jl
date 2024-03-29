@@ -353,6 +353,6 @@ sphere = st_funlib(sph, sphg, sphh)
 rast  = st_funlib(rt, rtg, rth)
 dp  = st_funlib(dix, dpg, dph)
 rosen = st_funlib(rf, rg, rh)
-trid = st_funlib(tri, tridg, tridh)
+#trid = st_funlib(tri, tridg, tridh)
 
 end
