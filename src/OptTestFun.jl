@@ -127,6 +127,39 @@ function dph(x::Vector)
 
     return H
 end
+
+############### FUNCTION RASTRING ###############################
+
+function rt(x::Vector{T}) where T <: Real
+    n = length(x)
+    sum = 0
+    for i in 1:length(x)
+        sum += x[i]^2 -10*cos(2*pi*x[i])
+    end
+    a = 10 * n
+    return sum + a
+end
+
+function rtg(x::Vector{T}) where T <: Real
+    g = zeros(length(x)) 
+    for i in 1:length(x)
+        g[i] = 2 * x[i] + 10 * sin(2π * x[i]) * 2π
+    end
+     return g 
+    end
+
+
+function rth(x::Vector)
+    n = length(x)
+    H = zeros(length(x), length(x))
+    for i in 1:length(x)
+        H[i, i] = 2 * (1 + 20 * π^2 * cos(2π * x[i]))
+    end
+        return H
+end
+
+
+rast  = st_funlib(rt, rtg, rth)
 dix   = st_funlib(dp, dpg, dph)
 rosen = st_funlib(rf, rg, rh)
 quad1 = st_funlib(f1,g1,h1)
