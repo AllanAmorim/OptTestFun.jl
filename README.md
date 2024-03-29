@@ -1,6 +1,1 @@
-# OptTestFun
-
-[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://AllanAmorim.github.io/OptTestFun.jl/stable/)
-[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://AllanAmorim.github.io/OptTestFun.jl/dev/)
-[![Build Status](https://github.com/AllanAmorim/OptTestFun.jl/actions/workflows/CI.yml/badge.svg?branch=master)](https://github.com/AllanAmorim/OptTestFun.jl/actions/workflows/CI.yml?query=branch%3Amaster)
-[![Coverage](https://codecov.io/gh/AllanAmorim/OptTestFun.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/AllanAmorim/OptTestFun.jl)
+In this work, we present the initial development of a test function package. Its aim is to study the performance of algorithms in the context of Continuous Optimization. This package is implemented in the Julia programming language. Functions, their gradient vectors, and their Hessian matrices are provided.
