@@ -305,7 +305,7 @@ function tridg(x::Vector{T}) where T <: Real
     for i in 2:length(x)-1
         g[i] = 2 * (x[i] - 1) - (x[i-1] + x[i+1])  # Update coordinates from 2 to n-1 with these results 
     end
-    g[end] = 2 * (x[end] - 1) + x[end - 1]
+    g[end] = 2 * (x[end] - 1) - x[end - 1]
     return g
 end
 
@@ -341,12 +341,6 @@ end
 
 
 
-
-
-
-
-
-############### TRID FUNCTION - (HESSIAN) ###############
 
 
 
