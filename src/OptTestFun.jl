@@ -1,6 +1,6 @@
 module OptTestFun
 
-export quad1, quad2, rosen, dix, rast
+export quad1, quad2, rosen, dix, rast, sphere
 
 
 # Write your package code here...
@@ -159,6 +159,37 @@ function rth(x::Vector)
 end
 
 
+############### FUNCTION SPHERE ###############################
+
+function sph(x::Vector{T}) where T <: Real
+    n = length(x)
+    sum = 0
+    for i in 1:length(x)
+    sum += (x[i]^2)
+    end
+    return sum
+end
+
+function sphg(x::Vector{T}) where T <: Real
+    g = zeros(length(x)) 
+    for i in 1:length(x)
+        g[i] = 2 * x[i]
+    end
+    return g 
+end
+
+
+function sphh(x::Vector{T}) where T <: Real
+    n = length(x)
+    H = zeros(length(x), length(x))
+    for i in 1:length(x)
+        H[i, i] = 2 
+    end
+    return H
+end
+
+
+sphere = st_funlib(sph, sphg, sphh)
 rast  = st_funlib(rt, rtg, rth)
 dix   = st_funlib(dp, dpg, dph)
 rosen = st_funlib(rf, rg, rh)
