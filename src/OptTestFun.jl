@@ -12,8 +12,6 @@ end
 
 
 ############ FUNCTION LIBRARY ###############################
-
-
 function f1(x)
     return sum(x)
 end
