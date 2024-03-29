@@ -279,60 +279,60 @@ end
 
 ############### TRID FUNCTION - (OBJECTIVE) ###############
 
-function tri(x::Vector{T}) where T <: Real 
-    s1 = 0   
-    for i in 1:length(x) 
-        s1 += (x[i] - 1)^2 
-    end
+# function tri(x::Vector{T}) where T <: Real 
+#     s1 = 0   
+#     for i in 1:length(x) 
+#         s1 += (x[i] - 1)^2 
+#     end
 
-    s2 = 0   
-    for i in 2:length(x) 
-        s2 += x[i] * x[i-1]
-    end
+#     s2 = 0   
+#     for i in 2:length(x) 
+#         s2 += x[i] * x[i-1]
+#     end
    
-    return s1 - s2
-end
+#     return s1 - s2
+# end
 
 
 
 
-############### TRID FUNCTION - (GRADIENT) ###############
+# ############### TRID FUNCTION - (GRADIENT) ###############
 
-function tridg(x::Vector{T}) where T <: Real
-    n = length(x)   # Vector dimension
-    g = zeros(n)    # Creates a vector of n coordinates initialized to 0
-    g[1] = 2 * (x[1] - 1) - x[2]  # Update the first coordinate of the vector with this result
-    for i in 2:length(x)-1
-        g[i] = 2 * (x[i] - 1) - (x[i-1] + x[i+1])  # Update coordinates from 2 to n-1 with these results 
-    end
-    g[end] = 2 * (x[end] - 1) - x[end - 1]
-    return g
-end
+# function tridg(x::Vector{T}) where T <: Real
+#     n = length(x)   # Vector dimension
+#     g = zeros(n)    # Creates a vector of n coordinates initialized to 0
+#     g[1] = 2 * (x[1] - 1) - x[2]  # Update the first coordinate of the vector with this result
+#     for i in 2:length(x)-1
+#         g[i] = 2 * (x[i] - 1) - (x[i-1] + x[i+1])  # Update coordinates from 2 to n-1 with these results 
+#     end
+#     g[end] = 2 * (x[end] - 1) - x[end - 1]
+#     return g
+# end
 
 
-############### TRID FUNCTION - (HESSIAN) ###############
+# ############### TRID FUNCTION - (HESSIAN) ###############
 
-function tridh(x::Vector)   # x is a vector of real coordinates
-    n = length(x)   # Vector dimension
-    H = zeros(length(x), length(x))  # Creates a matrix of zeros with dimensions n x n 
+# function tridh(x::Vector)   # x is a vector of real coordinates
+#     n = length(x)   # Vector dimension
+#     H = zeros(length(x), length(x))  # Creates a matrix of zeros with dimensions n x n 
 
-    # For the first row of the matrix
-    H[1, 1] = 2  # Replace the first result of the row with 6
-    H[1, 2] = -1 # Replace the second result of the row with this value
+#     # For the first row of the matrix
+#     H[1, 1] = 2  # Replace the first result of the row with 6
+#     H[1, 2] = -1 # Replace the second result of the row with this value
 
-    # For rows 2 to n-1
-    for i in 2:length(x)-1
-        H[i, i-1] = -1 # Replace the result of row i column i-1 with this value 
-        H[i, i] = 2 # Replace the result of row i column i with this value
-        H[i, i+1] = -1 # Replace the result of row i column i+1 with this value
-    end
+#     # For rows 2 to n-1
+#     for i in 2:length(x)-1
+#         H[i, i-1] = -1 # Replace the result of row i column i-1 with this value 
+#         H[i, i] = 2 # Replace the result of row i column i with this value
+#         H[i, i+1] = -1 # Replace the result of row i column i+1 with this value
+#     end
 
-    # For the last row
-    H[end, end-1] = -1  # Replace the result of row n column n-1 with this value
-    H[end, end] = 2 # Replace the result of row n column n with this value
+#     # For the last row
+#     H[end, end-1] = -1  # Replace the result of row n column n-1 with this value
+#     H[end, end] = 2 # Replace the result of row n column n with this value
 
-    return H
-end
+#     return H
+# end
 
 
 
