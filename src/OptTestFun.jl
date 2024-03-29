@@ -8,7 +8,7 @@ struct st_funlib
     hess :: Function 
 end
 
-############### ROSENBROCK FUNCTION ###############################
+############### ROSENBROCK FUNCTION ###############
 
 ## OBJECTIVE FUNCTION
 function rf(x::Vector{T}) where T <: Real
@@ -58,6 +58,9 @@ function rh(x::Vector{T}) where T <: Real
     return H  
 end
 
+
+
+
 ############### DIXON-PRICE FUNCTION ###############################
 
 ## OBJECTIVE FUNCTION
@@ -105,6 +108,9 @@ function dph(x::Vector)   # x is a vector of real coordinates
     return H
 end
 
+
+
+
 ############### RASTRING FUNCTION ###############################
 
 ## OBJECTIVE FUNCTION
@@ -138,6 +144,9 @@ function rth(x::Vector)  # x is a vector of real coordinates
     return H
 end
 
+
+
+
 ############### SPHERE FUNCTION ###############################
 
 ## OBJECTIVE FUNCTION
@@ -168,6 +177,8 @@ function sphh(x::Vector{T}) where T <: Real # x is a vector of real coordinates
     end
     return H
 end
+
+
 
 # How to call the functions
 sphere = st_funlib(sph, sphg, sphh)
