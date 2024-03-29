@@ -85,9 +85,26 @@ end
 
 
 
-###############  DIXON-PRICE FUNCTION ############### 
+############### DIXON-PRICE FUNCTION - DESCRIPTION ###############
 
-## OBJECTIVE FUNCTION
+# The Dixon-Price function is a widely used optimization benchmark in testing optimization algorithms. 
+# In $n$ dimensions, the Dixon-Price function is expressed as:
+
+# $$ f(x) = (x_1 - 1)^2 + \sum_{i=2}^{n} i \cdot (2x_i^2 - x_{i-1})^2 $$
+
+# This function involves a sum of terms, where each term depends on two adjacent variables. 
+# The aim of optimization is to find the global minimum of this function within an $n$-dimensional space. 
+# The Dixon-Price function is notable for having a global minimum at the point where all variables are equal to one.
+
+# However, as the dimensionality increases beyond two, the Dixon-Price function exhibits multiple local minima, 
+# making it a challenging optimization problem. This characteristic provides a valuable test for assessing the efficacy
+# and robustness of optimization algorithms across various applications.
+
+
+
+
+###############  DIXON-PRICE FUNCTION (OBJECTIVE) ###############
+
 function dix(x::Vector) # x is a vector of real coordinates
     n = length(x) # Vector dimension
     sum = (x[1] - 1)^2 # First part of the function 
@@ -98,7 +115,7 @@ function dix(x::Vector) # x is a vector of real coordinates
 end
 
 
-############### GRADIENT DIXON-PRICE ############### 
+############### DIXON-PRICE FUNCTION (GRADIENT) ###############
 
 function dpg(x::Vector) # x is a vector of real coordinates
     n = length(x)   # Vector dimension
@@ -111,7 +128,9 @@ function dpg(x::Vector) # x is a vector of real coordinates
     return g
 end
 
-## HESSIAN FUNCTION
+
+############### DIXON-PRICE FUNCTION (HESSIAN) ###############
+
 function dph(x::Vector)   # x is a vector of real coordinates
     n = length(x)   # Vector dimension
     H = zeros(length(x), length(x))  # Creates a matrix of zeros with dimensions n x n 
@@ -137,9 +156,29 @@ end
 
 
 
-############### RASTRING FUNCTION ###############################
 
-## OBJECTIVE FUNCTION
+
+############### RASTRING FUNCTION - DESCRIPTION ###############
+
+# The Rastrigin function is a widely used multimodal minimization problem in optimization testing. 
+# It is characterized by having numerous local minima that are uniformly distributed throughout its search space, 
+# presenting a significant challenge for optimization algorithms.
+# The Rastrigin function is defined as follows for $n$ dimensions:
+
+# $$ f(x) = 10 \cdot n + \sum_{i=1}^{n} [x_i^2 - 10 \cdot \cos(2\pi x_i)] $$
+
+# The function is typically evaluated within the hypercube $x_i \in [-5.12, 5.12]$ for all $i = 1, \ldots, n$. 
+# These bounds define the range of each dimension within the search space.
+
+# Despite its complexity, the global minimum of the Rastrigin function is known to occur at the origin $(0, 0, \ldots, 0)$, 
+# where the function value is zero. However, finding this global minimum is challenging due to the presence of numerous
+# local minima scattered throughout the search space.
+
+
+
+
+############### RASTRING FUNCTION (OBJECTIVE) ###############
+
 function rt(x::Vector{T}) where T <: Real  # x is a vector of real coordinates
     n = length(x)   # Vector dimension
     sum = 0  # First part of the function
@@ -150,7 +189,8 @@ function rt(x::Vector{T}) where T <: Real  # x is a vector of real coordinates
     return sum + a # Sum of the parts
 end
 
-## GRADIENT FUNCTION
+
+############### RASTRING FUNCTION (GRADIENT) ###############
 function rtg(x::Vector{T}) where T <: Real  # x is a vector of real coordinates
     g = zeros(length(x))  # Creates a vector of n coordinates initialized to 0
     n = length(x)  # Vector dimension
@@ -160,7 +200,9 @@ function rtg(x::Vector{T}) where T <: Real  # x is a vector of real coordinates
     return g 
 end
 
-## HESSIAN FUNCTION
+
+############### RASTRING FUNCTION (HESSIAN) ###############
+
 function rth(x::Vector)  # x is a vector of real coordinates
     n = length(x) # Vector dimension
     H = zeros(length(x), length(x)) # Creates a matrix of zeros with dimensions n x n 
@@ -173,9 +215,24 @@ end
 
 
 
-############### SPHERE FUNCTION ###############################
 
-## OBJECTIVE FUNCTION
+
+############### SPHERE FUNCTION - DESCRIPTION ###############
+
+# The Sphere function is a fundamental optimization benchmark commonly used to evaluate optimization algorithms. 
+# In $n$ dimensions, the Sphere function is defined as:
+
+# $$ f(x) = \sum_{i=1}^{n} x_i^2 $$
+
+# This function calculates the sum of squares of each variable, aiming to minimize the sum to achieve the global minimum. 
+# The global minimum of the Sphere function is at the origin, where all variables are zero. The function represents a convex
+# and smooth surface without local minima, making it relatively easier to optimize compared to many other functions.
+
+
+
+
+############### SPHERE FUNCTION (OBJECTIVE) ###############
+
 function sph(x::Vector{T}) where T <: Real # x is a vector of real coordinates
     n = length(x) # Vector dimension
     sum = 0   # First part of the function
@@ -185,7 +242,9 @@ function sph(x::Vector{T}) where T <: Real # x is a vector of real coordinates
     return sum # Sum of the parts
 end
 
-## GRADIENT FUNCTION
+
+############### SPHERE FUNCTION (GRADIENT) ###############
+
 function sphg(x::Vector{T}) where T <: Real # x is a vector of real coordinates
     g = zeros(length(x)) # Creates a vector of n coordinates initialized to 0
     for i in 1:length(x)
@@ -194,7 +253,9 @@ function sphg(x::Vector{T}) where T <: Real # x is a vector of real coordinates
     return g 
 end
 
-## HESSIAN FUNCTION
+
+############### SPHERE FUNCTION (HESSIAN) ###############
+
 function sphh(x::Vector{T}) where T <: Real # x is a vector of real coordinates
     n = length(x)  # Vector dimension
     H = zeros(length(x), length(x))   # Creates a matrix of zeros with dimensions n x n 
