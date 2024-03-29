@@ -8,11 +8,32 @@ struct st_funlib
     hess :: Function 
 end
 
-############### ROSENBROCK FUNCTION ###############
 
-## OBJECTIVE FUNCTION
-function rf(x::Vector{T}) where T <: Real
-    # x is a vector of real coordinates
+
+# In this code, all expressions of the objective functions were adapted from 
+# the website https://www.sfu.ca/~ssurjano/optimization.html.
+
+
+
+############### ROSENBROCK FUNCTION - DESCRIPTION ###############
+
+# The Rosenbrock function, also known as the 'banana function', is a classic nonlinear optimization problem used for
+# testing optimization algorithms. In $n$ dimensions, the Rosenbrock function is defined by the following expression:
+
+# $$f(x)=\sum_{i=1}^{n-1} [100 (x_{i+1} - x_i^2)^2 + (x_i - 1)^2] $$ 
+
+# This function consists of a weighted sum of quadratic and linear terms, where each term involves two adjacent variables. 
+# The Rosenbrock function has the distinctive feature of having a global minimum at $(1, 1, ..., 1)$, 
+# where the value of the function is zero. However, for $n > 2$, this function exhibits narrow and elongated valleys, 
+# posing a challenge for many optimization algorithms. The function is often used to evaluate the effectiveness
+# of optimization algorithms across a variety of applications.
+
+
+
+
+############### ROSENBROCK FUNCTION (OBJECTIVE) ############### 
+
+function rf(x::Vector{T}) where T <: Real # x is a vector of real coordinates
     n = length(x)   # Vector dimension
     sum = 0         # First part of the function
     for i in 1:length(x)-1 
@@ -21,9 +42,10 @@ function rf(x::Vector{T}) where T <: Real
     return sum     # Sum of the first part with the second part
 end
 
-## GRADIENT FUNCTION
-function rg(x::Vector{T}) where T <: Real
-    # x is a vector of real coordinates
+
+############### ROSENBROCK FUNCTION (GRADIENT) ############### 
+
+function rg(x::Vector{T}) where T <: Real # x is a vector of real coordinates
     n = length(x)   # Vector dimension
     g = zeros(n)    # Creates a vector of n coordinates initialized to 0
     g[1] = 200 * (x[2] - x[1]^2) * (-2 * x[1]) + 2 * (x[1] - 1)   # Update the first coordinate of the vector with this result
@@ -34,26 +56,26 @@ function rg(x::Vector{T}) where T <: Real
     return g
 end
 
-## HESSIAN FUNCTION
-function rh(x::Vector{T}) where T <: Real
-    # x is a vector of real coordinates
+############### ROSENBROCK FUNCTION (HESSIAN) ############### 
+
+function rh(x::Vector{T}) where T <: Real # x is a vector of real coordinates
     n = length(x)   # Vector dimension
     H = zeros(length(x), length(x))   # Creates a matrix of zeros with dimensions n x n
 
-    # For the first row of the matrix
-    H[1, 1] = -400 * (x[2] - x[1]^2) + 800 * x[1]^2 + 2  # Replace the first result in the line with this value
-    H[1, 2] = -400.0 * x[1] # Replace the second result of the row with this value
+    # For the first row of the matrix:
+    H[1, 1] = -400 * (x[2] - x[1]^2) + 800 * x[1]^2 + 2  # Replace the first result in the line with this value.
+    H[1, 2] = -400.0 * x[1] # Replace the second result of the row with this value.
 
     # For rows 2 to n-1
     for i in 2:length(x)-1 
-        H[i, i-1] = -400 * x[i-1]   # Replace the result of row i column i-1 with this value
-        H[i, i] = 200 - 400 * (x[i+1] - x[i]^2) + 800 * x[i]^2 + 2  # Replace the result of row i column i with this value
-        H[i, i+1] = -400.0 * x[i]  # Replace the result of row i column i+1 with this value
+        H[i, i-1] = -400 * x[i-1]   # Replace the result of row i column i-1 with this value.
+        H[i, i] = 200 - 400 * (x[i+1] - x[i]^2) + 800 * x[i]^2 + 2  # Replace the result of row i column i with this value.
+        H[i, i+1] = -400.0 * x[i]  # Replace the result of row i column i+1 with this value.
     end
 
-    # For the last row
-    H[end, end-1] = -400.0 * x[end-1]  # Replace the result of row n column n-1 with this value
-    H[end, end] = 200.0  # Replace the result of row n column n with this value
+    # For the last row.
+    H[end, end-1] = -400.0 * x[end-1]  # Replace the result of row n column n-1 with this value.
+    H[end, end] = 200.0  # Replace the result of row n column n with this value.
 
     return H  
 end
@@ -61,7 +83,9 @@ end
 
 
 
-############### DIXON-PRICE FUNCTION ###############################
+
+
+###############  DIXON-PRICE FUNCTION ############### 
 
 ## OBJECTIVE FUNCTION
 function dix(x::Vector) # x is a vector of real coordinates
@@ -73,7 +97,9 @@ function dix(x::Vector) # x is a vector of real coordinates
     return sum # Sum of the first part with the second part
 end
 
-## GRADIENT FUNCTION
+
+############### GRADIENT DIXON-PRICE ############### 
+
 function dpg(x::Vector) # x is a vector of real coordinates
     n = length(x)   # Vector dimension
     g = zeros(n)    # Creates a vector of n coordinates initialized to 0
