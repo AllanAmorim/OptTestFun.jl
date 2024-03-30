@@ -361,13 +361,13 @@ function zakg(x::Vector{T}) where T <: Real
 
     s2 = 0   
     for i in 1:length(x) 
-        s2 += 0.5*i*x[i]
+        s2 +=  0.5*i*x[i]
     end
 
 
 
     for i in 1:length(x)
-        g[i] = 2*x[i] + i*(s2) + 2*i*(s2) # Update coordinates from 1 to n with these results 
+        g[i] = 2*x[i] + i*(s2) + 2*i*(s2)^3 # Update coordinates from 1 to n with these results 
     end
     
     return g
