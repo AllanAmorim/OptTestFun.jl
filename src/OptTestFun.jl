@@ -2,7 +2,7 @@ module OptTestFun
 
 export rosen, dp, rast, sphere, trid, squares
 
-struct st_funlib
+struct otf
     obj  :: Function
     grad :: Function
     hess :: Function 
@@ -396,11 +396,11 @@ end
 
 
 # How to call the functions
-sphere = st_funlib(sph, sphg, sphh)
-rast  = st_funlib(rt, rtg, rth)
-dp  = st_funlib(dix, dpg, dph)
-rosen = st_funlib(rf, rg, rh)
-trid = st_funlib(tri, tridg, tridh)
-squares = st_funlib(squa, squagrad, squahess)
+sphere = otf(sph, sphg, sphh)
+rast  = otf(rt, rtg, rth)
+dp  = otf(dix, dpg, dph)
+rosen = otf(rf, rg, rh)
+trid = otf(tri, tridg, tridh)
+squares = otf(squa, squagrad, squahess)
 
 end
