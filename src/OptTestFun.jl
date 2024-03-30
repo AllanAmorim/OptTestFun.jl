@@ -1,6 +1,6 @@
 module OptTestFun
 
-export rosen, dp, rast, sphere, trid, zakha
+export rosen, dp, rast, sphere, trid#, zakha
 
 struct st_funlib
     obj  :: Function
@@ -344,62 +344,64 @@ end
 ################ ZAKHAROV FUNCTION - (OBJECTIVE) ###############
 
 
-function zak(x::Vector{T}) where T <: Real 
-    s1 = 0   
-    for i in 1:length(x) 
-        s1 += x[i]^2
-    end
+# function zak(x::Vector{T}) where T <: Real 
+#     s1 = 0   
+#     for i in 1:length(x) 
+#         s1 += x[i]^2
+#     end
 
-    s2 = 0   
-    for i in 1:length(x) 
-        s2 += 0.5*i*x[i]
-    end
+#     s2 = 0   
+#     for i in 1:length(x) 
+#         s2 += 0.5*i*x[i]
+#     end
    
-    return s1 + s2^2 + s2^4
-end
+#     return s1 + s2^2 + s2^4
+# end
 
 
-################ ZAKHAROV FUNCTION - (GRADIENT) ###############
+# ################ ZAKHAROV FUNCTION - (GRADIENT) ###############
 
-function zakg(x::Vector{T}) where T <: Real
-    n = length(x)   # Vector dimension
-    g = zeros(n)    # Creates a vector of n coordinates initialized to 0
+# function zakg(x::Vector{T}) where T <: Real
+#     n = length(x)   # Vector dimension
+#     g = zeros(n)    # Creates a vector of n coordinates initialized to 0
 
-    sum = 0   
-    for i in 1:length(x)         # Part of the function involving the summation
-        sum +=  0.5 * i * x[i]
-    end
+#     sum = 0   
+#     for i in 1:length(x)         # Part of the function involving the summation
+#         sum +=  0.5 * i * x[i]
+#     end
 
 
 
-    for i in 1:length(x)
-        g[i] = 2 * x[i] + i * (sum) + 2 * i * (sum)^3 # Update coordinates from 1 to n with these results 
-    end
+#     for i in 1:length(x)
+#         g[i] = 2 * x[i] + i * (sum) + 2 * i * (sum)^3 # Update coordinates from 1 to n with these results 
+#     end
     
-    return g
-end
+#     return g
+# end
 
-# ############### ZAKHAROV FUNCTION - (HESSIAN) ###############
+# # ############### ZAKHAROV FUNCTION - (HESSIAN) ###############
 
-function zakh(x::Vector)   # x is a vector of real coordinates
-    n = length(x)   # Vector dimension
-    H = zeros(length(x), length(x))  # Creates a matrix of zeros with dimensions n x n 
+# function zakh(x::Vector)   # x is a vector of real coordinates
+#     n = length(x)   # Vector dimension
+#     H = zeros(length(x), length(x))  # Creates a matrix of zeros with dimensions n x n 
 
-    sum = 0   
-    for i in 1:length(x)          # Part of the function involving the summation
-        sum +=  0.5 * i * x[i]
-    end
+#     sum = 0   
+#     for i in 1:length(x)          # Part of the function involving the summation
+#         sum +=  0.5 * i * x[i]
+#     end
 
-    for i in 1:length(x)
+#     H[1,1] = 2.5 + 3 * (0.5 * x[1])^2
+
+#     for i in 1:length(x)
         
-        H[i, i] = 2 + (0.5 * i^2) + (3 * i^2) * (sum) # Replace the result of row i column i with this value
+#         H[i, i] = 2 + (0.5 * i^2) + (3 * i^2) * (sum) # Replace the result of row i column i with this value
         
-    end
+#     end
 
    
 
-    return H
-end
+#     return H
+# end
 
 
 
@@ -421,6 +423,6 @@ rast  = st_funlib(rt, rtg, rth)
 dp  = st_funlib(dix, dpg, dph)
 rosen = st_funlib(rf, rg, rh)
 trid = st_funlib(tri, tridg, tridh)
-zakha = st_funlib(zak, zakg, zakh)
+# zakha = st_funlib(zak, zakg, zakh)
 
 end
