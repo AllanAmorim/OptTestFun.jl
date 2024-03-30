@@ -36,7 +36,7 @@ end
 function rf(x::Vector{T}) where T <: Real # x is a vector of real coordinates
     n = length(x)   # Vector dimension
     sum = 0         # First part of the function
-    for i in 1:length(x)-1 
+    for i in 1:length(x)-1 # For each element 'x[i]' of the vector 'x'...
         sum += 100 * (x[i+1] - x[i]^2)^2 + (1 - x[i])^2  # Part of the function involving the summation
     end
     return sum     # Sum of the first part with the second part
@@ -108,7 +108,7 @@ end
 function dix(x::Vector) # x is a vector of real coordinates
     n = length(x) # Vector dimension
     sum = (x[1] - 1)^2 # First part of the function 
-    for i in 2:n
+    for i in 2:n  # For each element 'x[i]' of the vector 'x'...
         sum += i * (2*x[i]^2 - x[i-1])^2 # Part of the function involving the summation
     end
     return sum # Sum of the first part with the second part
@@ -182,7 +182,7 @@ end
 function rt(x::Vector{T}) where T <: Real  # x is a vector of real coordinates
     n = length(x)   # Vector dimension
     sum = 0  # First part of the function
-    for i in 1:length(x)
+    for i in 1:length(x)  # For each element 'x[i]' of the vector 'x'...
         sum += x[i]^2 -10*cos(2*pi*x[i])  # Part of the function involving the summation
     end
     a = 10 * n  # Part outside the summation
@@ -194,7 +194,7 @@ end
 function rtg(x::Vector{T}) where T <: Real  # x is a vector of real coordinates
     g = zeros(length(x))  # Creates a vector of n coordinates initialized to 0
     n = length(x)  # Vector dimension
-    for i in 1:length(x) 
+    for i in 1:length(x) # For each element 'x[i]' of the vector 'x'...
         g[i] = 2 * x[i] + 10 * sin(2π * x[i]) * 2π   # Update coordinates from 1 to n with these results 
     end
     return g 
@@ -236,7 +236,7 @@ end
 function sph(x::Vector{T}) where T <: Real # x is a vector of real coordinates
     n = length(x) # Vector dimension
     sum = 0   # First part of the function
-    for i in 1:length(x) 
+    for i in 1:length(x)  # For each element 'x[i]' of the vector 'x'...
     sum += (x[i]^2)  # Part of the function involving the summation
     end
     return sum # Sum of the parts
@@ -247,7 +247,7 @@ end
 
 function sphg(x::Vector{T}) where T <: Real # x is a vector of real coordinates
     g = zeros(length(x)) # Creates a vector of n coordinates initialized to 0
-    for i in 1:length(x)
+    for i in 1:length(x) # For each element 'x[i]' of the vector 'x'...
         g[i] = 2 * x[i]  #Update coordinates from 1 to n with these results
     end
     return g 
@@ -310,7 +310,7 @@ function tridg(x::Vector{T}) where T <: Real
     n = length(x)   # Vector dimension
     g = zeros(n)    # Creates a vector of n coordinates initialized to 0
     g[1] = 2 * (x[1] - 1) - x[2]  # Update the first coordinate of the vector with this result
-    for i in 2:length(x)-1
+    for i in 2:length(x)-1 # For each element 'x[i]' of the vector 'x'...
         g[i] = 2 * (x[i] - 1) - (x[i-1] + x[i+1])  # Update coordinates from 2 to n-1 with these results 
     end
     g[end] = 2 * (x[n]-1) - x[n-1]
@@ -365,7 +365,7 @@ end
 function squa(x::Vector{T}) where T <: Real
     n = length(x) # Vector dimension
     sum = 0   # First part of the function
-    for i in 1:length(x) 
+    for i in 1:length(x)  # For each element 'x[i]' of the vector 'x'...
     sum += i * (x[i]^2)  # Part of the function involving the summation
     end
     return sum # Sum of the parts
