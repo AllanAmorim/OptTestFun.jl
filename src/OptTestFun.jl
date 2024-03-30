@@ -335,7 +335,13 @@ function tridh(x::Vector)   # x is a vector of real coordinates
 end 
 
 
-# ############### ZAKHAROV FUNCTION - (OBJECTIVE) ###############
+
+
+
+
+
+
+################ ZAKHAROV FUNCTION - (OBJECTIVE) ###############
 
 
 function zak(x::Vector{T}) where T <: Real 
@@ -353,21 +359,21 @@ function zak(x::Vector{T}) where T <: Real
 end
 
 
-# ############### ZAKHAROV FUNCTION - (GRADIENT) ###############
+################ ZAKHAROV FUNCTION - (GRADIENT) ###############
 
 function zakg(x::Vector{T}) where T <: Real
     n = length(x)   # Vector dimension
     g = zeros(n)    # Creates a vector of n coordinates initialized to 0
 
-    s2 = 0   
-    for i in 1:length(x) 
-        s2 +=  0.5*i*x[i]
+    sum = 0   
+    for i in 1:length(x)         # Part of the function involving the summation
+        sum +=  0.5 * i * x[i]
     end
 
 
 
     for i in 1:length(x)
-        g[i] = 2*x[i] + i*(s2) + 2*i*(s2)^3 # Update coordinates from 1 to n with these results 
+        g[i] = 2 * x[i] + i * (sum) + 2 * i * (sum)^3 # Update coordinates from 1 to n with these results 
     end
     
     return g
@@ -379,10 +385,14 @@ function zakh(x::Vector)   # x is a vector of real coordinates
     n = length(x)   # Vector dimension
     H = zeros(length(x), length(x))  # Creates a matrix of zeros with dimensions n x n 
 
+    sum = 0   
+    for i in 1:length(x)          # Part of the function involving the summation
+        sum +=  0.5 * i * x[i]
+    end
 
     for i in 1:length(x)
         
-        H[i, i] = 2 + 0.5*i^2 + i^2 # Replace the result of row i column i with this value
+        H[i, i] = 2 + (0.5 * i^2) + (3 * i^2) * (sum) # Replace the result of row i column i with this value
         
     end
 
