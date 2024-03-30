@@ -284,7 +284,7 @@ end
 
 
 
-############### TRID FUNCTION - (OBJECTIVE) ###############
+############### TRID FUNCTION (OBJECTIVE) ###############
 
 function tri(x::Vector{T}) where T <: Real  # x is a vector of real coordinates
     s1 = 0   # Initialize the variable 's1' to 0. 
@@ -347,7 +347,7 @@ end
 
 
 
-############### SUM SQUARES FUNCTION ###############
+############### SUM SQUARES FUNCTION - DESCRIPTION ###############
 
 # The Sum Squares function stands as a fundamental benchmark used to assess optimization algorithms. 
 # In $n$ dimensions, the function is expressed as:
@@ -362,6 +362,8 @@ end
 
 
 
+############### SUM SQUARES FUNCTION (OBJECTIVE) ###############
+
 function squa(x::Vector{T}) where T <: Real
     n = length(x) # Vector dimension
     sum = 0   # First part of the function
@@ -371,6 +373,9 @@ function squa(x::Vector{T}) where T <: Real
     return sum # Sum of the parts
 end
 
+
+############### SUM SQUARES FUNCTION (GRADIENT) ###############
+
 function squagrad(x::Vector{T}) where T <: Real
     g = zeros(length(x)) # Creates a vector of n coordinates initialized to 0
     for i in 1:length(x)
@@ -378,6 +383,9 @@ function squagrad(x::Vector{T}) where T <: Real
     end
     return g 
 end
+
+
+############### SUM SQUARES FUNCTION (HESSIAN) ###############
 
 function squahess(x::Vector{T}) where T <: Real
     n = length(x)  # Vector dimension
