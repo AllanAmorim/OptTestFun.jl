@@ -332,7 +332,7 @@ function tridh(x::Vector)   # x is a vector of real coordinates
     H[end, end] = 2 # Replace the result of row n column n with this value
 
     return H
-end
+end ##
 
 
 
