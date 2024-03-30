@@ -1,6 +1,6 @@
 module OptTestFun
 
-export rosen, dp, rast, sphere, trid#, zakha
+export rosen, dp, rast, sphere, trid, squares
 
 struct st_funlib
     obj  :: Function
@@ -10,7 +10,7 @@ end
 
 
 
-# In this code, all expressions of the objective functions were adapted from 
+# In this code, some of the expressions of the objective functions were adapted from
 # the website https://www.sfu.ca/~ssurjano/optimization.html.
 
 
@@ -268,35 +268,43 @@ end
 
 
 
+
+
 ############### TRID FUNCTION - DESCRIPTION ###############
 
-# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+# The Trid function serves as a significant benchmark for evaluating optimization algorithms. Defined by the expression:
+
+# $$ f(x) = \sum_{i=1}^{n} (x_i - 1)^2 - \sum_{i=2}^{n} x_i x_{i-1} $$
+
+# This function calculates the sum of squares of each variable minus the sum of products of adjacent variables, 
+# aiming to minimize this sum to achieve the global minimum. The global minimum of the Trid function occurs when 
+# all variables are equal to their respective indices, resulting in a minimum value of 0. The function is convex and smooth, 
+# devoid of local minima, which makes it relatively easier to optimize compared to many other functions.
 
 
 
 
 ############### TRID FUNCTION - (OBJECTIVE) ###############
 
-function tri(x::Vector{T}) where T <: Real 
-    s1 = 0   
-    for i in 1:length(x) 
-        s1 += (x[i] - 1)^2 
+function tri(x::Vector{T}) where T <: Real  # x is a vector of real coordinates
+    s1 = 0   # Initialize the variable 's1' to 0. 
+    for i in 1:length(x)  # For each element 'x[i]' of the vector 'x'...
+        s1 += (x[i] - 1)^2  # ...subtract 1 from 'x[i]', square the result, and add it to 's1'.
     end
 
-    s2 = 0   
-    for i in 2:length(x) 
-        s2 += x[i] * x[i-1]
+    s2 = 0   # Initialize the variable 's2' to 0.
+    for i in 2:length(x)  # For each element 'x[i]' of the vector 'x', starting from the second element...
+        s2 += x[i] * x[i-1]  # ...multiply 'x[i]' by the previous element 'x[i-1]' and add the result to 's2'.
     end
    
-    return s1 - s2
+    return s1 - s2  # Subtract 's2' from 's1' and return the result. This is the value of the 'trid' function for the input vector 'x'.
 end
 
 
 
 
-# ############### TRID FUNCTION - (GRADIENT) ###############
+
+############### TRID FUNCTION (GRADIENT) ###############
 
 function tridg(x::Vector{T}) where T <: Real
     n = length(x)   # Vector dimension
@@ -310,14 +318,14 @@ function tridg(x::Vector{T}) where T <: Real
 end
 
 
-# ############### TRID FUNCTION - (HESSIAN) ###############
+############### TRID FUNCTION (HESSIAN) ###############
 
 function tridh(x::Vector)   # x is a vector of real coordinates
     n = length(x)   # Vector dimension
     H = zeros(length(x), length(x))  # Creates a matrix of zeros with dimensions n x n 
 
     # For the first row of the matrix
-    H[1, 1] = 2  # Replace the first result of the row with 6
+    H[1, 1] = 2  # Replace the first result of the row
     H[1, 2] = -1 # Replace the second result of the row with this value
 
     # For rows 2 to n-1
@@ -339,76 +347,46 @@ end
 
 
 
+############### SUM SQUARES FUNCTION ###############
 
+# The Sum Squares function stands as a fundamental benchmark used to assess optimization algorithms. 
+# In $n$ dimensions, the function is expressed as:
 
-################ ZAKHAROV FUNCTION - (OBJECTIVE) ###############
+# $$ f(x) = \sum_{i=1}^{d} i x_i^2 $$
 
-
-# function zak(x::Vector{T}) where T <: Real 
-#     s1 = 0   
-#     for i in 1:length(x) 
-#         s1 += x[i]^2
-#     end
-
-#     s2 = 0   
-#     for i in 1:length(x) 
-#         s2 += 0.5*i*x[i]
-#     end
-   
-#     return s1 + s2^2 + s2^4
-# end
-
-
-# ################ ZAKHAROV FUNCTION - (GRADIENT) ###############
-
-# function zakg(x::Vector{T}) where T <: Real
-#     n = length(x)   # Vector dimension
-#     g = zeros(n)    # Creates a vector of n coordinates initialized to 0
-
-#     sum = 0   
-#     for i in 1:length(x)         # Part of the function involving the summation
-#         sum +=  0.5 * i * x[i]
-#     end
-
-
-
-#     for i in 1:length(x)
-#         g[i] = 2 * x[i] + i * (sum) + 2 * i * (sum)^3 # Update coordinates from 1 to n with these results 
-#     end
-    
-#     return g
-# end
-
-# # ############### ZAKHAROV FUNCTION - (HESSIAN) ###############
-
-# function zakh(x::Vector)   # x is a vector of real coordinates
-#     n = length(x)   # Vector dimension
-#     H = zeros(length(x), length(x))  # Creates a matrix of zeros with dimensions n x n 
-
-#     sum = 0   
-#     for i in 1:length(x)          # Part of the function involving the summation
-#         sum +=  0.5 * i * x[i]
-#     end
-
-#     H[1,1] = 2.5 + 3 * (0.5 * x[1])^2
-
-#     for i in 1:length(x)
-        
-#         H[i, i] = 2 + (0.5 * i^2) + (3 * i^2) * (sum) # Replace the result of row i column i with this value
-        
-#     end
-
-   
-
-#     return H
-# end
+# This function calculates a weighted sum of squares for each variable, with the weight increasing linearly with the index i. 
+# The primary objective is to minimize this sum to attain the global minimum. The global minimum of the Sum Squares function is 
+# achieved when all variables are zero, leading to a minimum value of 0. Notably, the function is characterized by its convex 
+# and smooth nature, devoid of any local minima, which renders optimization relatively straightforward compared to other functions.
 
 
 
 
+function squa(x::Vector{T}) where T <: Real
+    n = length(x) # Vector dimension
+    sum = 0   # First part of the function
+    for i in 1:length(x) 
+    sum += i * (x[i]^2)  # Part of the function involving the summation
+    end
+    return sum # Sum of the parts
+end
 
+function squagrad(x::Vector{T}) where T <: Real
+    g = zeros(length(x)) # Creates a vector of n coordinates initialized to 0
+    for i in 1:length(x)
+        g[i] = 2 * i * x[i]  #Update coordinates from 1 to n with these results
+    end
+    return g 
+end
 
-
+function squahess(x::Vector{T}) where T <: Real
+    n = length(x)  # Vector dimension
+    H = zeros(length(x), length(x))   # Creates a matrix of zeros with dimensions n x n 
+    for i in 1:length(x)
+        H[i, i] = 2 * i   # Replace the result of row i column i with this value
+    end
+    return H
+end
 
 
 
@@ -423,6 +401,6 @@ rast  = st_funlib(rt, rtg, rth)
 dp  = st_funlib(dix, dpg, dph)
 rosen = st_funlib(rf, rg, rh)
 trid = st_funlib(tri, tridg, tridh)
-# zakha = st_funlib(zak, zakg, zakh)
+squares = st_funlib(squa, squagrad, squahess)
 
 end
