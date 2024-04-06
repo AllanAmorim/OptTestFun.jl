@@ -377,8 +377,9 @@ end
 ############### SUM SQUARES FUNCTION (GRADIENT) ###############
 
 function squagrad(x::Vector{T}) where T <: Real
-    g = zeros(length(x)) # Creates a vector of n coordinates initialized to 0
-    for i in 1:length(x)
+    n = length(x)
+    g = zeros(n) # Creates a vector of n coordinates initialized to 0
+    for i in 1:n
         g[i] = 2 * i * x[i]  #Update coordinates from 1 to n with these results
     end
     return g 
@@ -389,8 +390,8 @@ end
 
 function squahess(x::Vector{T}) where T <: Real
     n = length(x)  # Vector dimension
-    H = zeros(length(x), length(x))   # Creates a matrix of zeros with dimensions n x n 
-    for i in 1:length(x)
+    H = zeros(n, n)   # Creates a matrix of zeros with dimensions n x n 
+    for i in 1:n
         H[i, i] = 2 * i   # Replace the result of row i column i with this value
     end
     return H
@@ -401,9 +402,88 @@ end
 
 
 
+############### STYBLINSKI-TANG FUNCTION - DESCRIPTION ###############
+
+#
+#
+#
+#
+
+
+
+############### STYBLINSKI-TANG FUNCTION (OBJECTIVE) ###############
+
+function stangobj(x::Vector{T}) where {T <: Real}
+    # Inicializando a variável 'soma' com 0.0; ela irá armazenar a soma cumulativa dos cálculos
+    soma = zero(T)
+    
+    # Iterando sobre cada índice do vetor x usando um loop for
+    for i in 1:length(x)
+        # Calculando o valor da função Styblinski-Tang para cada elemento x[i] em x e adicionando à 'soma'.
+        # O cálculo envolve operações polinomiais em x[i].
+        soma += (x[i]^4 - 16*x[i]^2 + 5*x[i])
+    end
+    
+    # Multiplicando a soma final por 1/2 conforme a fórmula e retornando o resultado
+    return soma / 2.0 
+end
+
+
+
+
+############### STYBLINSKI-TANG FUNCTION (GRADIENT) ###############
+
+# Definindo a função gradiente da Styblinski-Tang
+function stangrad(x::Vector{Float64})
+    n = length(x)
+    # Inicializando o vetor 'grad' com zeros; ele irá armazenar o gradiente
+    grad = zeros(n)
+    
+    # Iterando sobre cada índice do vetor x usando um loop for
+    for i in 1:n
+        # Calculando o valor do gradiente da função Styblinski-Tang para cada elemento x[i] em x e armazenando no vetor 'grad'.
+        # O cálculo envolve operações polinomiais em x[i].
+        grad[i] = 1/2 * (4*x[i]^3 - 32*x[i] + 5)
+    end
+    
+    # Retornando o vetor gradiente
+    return grad
+end
+
+
+
+############### STYBLINSKI-TANG FUNCTION (HESSIAN) ###############
+
+function stanghess(x::Vector{Float64})
+    n = length(x)
+    # Inicializando a matriz 'H' com zeros; ela irá armazenar a matriz Hessiana
+    H = zeros(n, n)
+    
+    # Iterando sobre cada índice do vetor x usando um loop for
+    for i in 1:n
+        # A segunda derivada da função Styblinski-Tang em relação a x[i] é 1/2 * (12*x[i]^2 - 32).
+        H[i, i] = 1/2 * (12*x[i]^2 - 32)
+    end
+    
+    # Retornando a matriz Hessiana
+    return H
+end
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # How to call the functions
+stang = otf(stangobj, stangrad, stanghess)
 sphere = otf(sph, sphg, sphh)
 rast  = otf(rt, rtg, rth)
 dp  = otf(dix, dpg, dph)
