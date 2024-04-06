@@ -1,6 +1,6 @@
 module OptTestFun
 
-export rosen, dp, rast, sphere, trid, squares
+export rosen, dp, rast, sphere, trid, squares, stang
 
 struct otf
     obj  :: Function
